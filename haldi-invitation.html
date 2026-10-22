@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haldi Ceremony · Sisna &amp; Noel</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFEB3B;--g:#FBC02D;--o:#FF9800;--dk:#E65100;--gr:#2E7D32;--ink:#4E342E;--card:#FFFDE7}
+@media (prefers-color-scheme:dark){:root{--ink:#4E342E;--card:#FFFDE7}}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#3e2a00;font-family:Poppins,system-ui,sans-serif;color:var(--ink)}
+#app{position:relative;width:100%;max-width:480px;height:100dvh;margin:0 auto;overflow:hidden;background:linear-gradient(#FFF59D,#FFEB3B 45%,#FBC02D)}
+canvas#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+/* intro */
+#intro{position:absolute;inset:0;z-index:20;transition:opacity .8s}
+#intro.out{opacity:0;pointer-events:none}
+#intro svg{width:100%;height:100%;display:block}
+#intro .a{opacity:0}
+.drop{animation:drop 1.2s cubic-bezier(.3,1.3,.5,1) both}
+@keyframes drop{from{transform:translateY(-110%);opacity:1}to{transform:none;opacity:1}}
+.sway{animation:sway 3.6s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+.pop{transform-box:fill-box;transform-origin:50% 100%;animation:pop .9s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{transform:scaleY(0);opacity:1}to{transform:none;opacity:1}}
+.fade{animation:fade 1.2s both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.draw{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 1.2s ease-out both;opacity:1!important}
+@keyframes draw{to{stroke-dashoffset:0}}
+.slide{animation:slide 1s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes slide{from{transform:translateY(160px);opacity:1}to{transform:none;opacity:1}}
+.glow{animation:fade 1.2s 3.6s both,glow 2.4s 4.8s ease-in-out infinite alternate}
+@keyframes glow{from{filter:drop-shadow(0 0 4px #fff59d)}to{filter:drop-shadow(0 0 14px #ffb300)}}
+.btn{border:0;font:700 17px Poppins,sans-serif;color:#fff;background:linear-gradient(135deg,#FF9800,#E65100);padding:14px 28px;border-radius:40px;box-shadow:0 6px 18px #e6510088;cursor:pointer;position:relative;overflow:hidden}
+.btn:active{transform:scale(.95)}
+#cta{position:absolute;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);opacity:0;animation:fade .8s 5.6s forwards,pulse 1.4s 6.4s infinite;white-space:nowrap}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #ff980099}50%{box-shadow:0 0 0 16px #ff980000}}
+/* main */
+#main{position:absolute;inset:0;visibility:hidden}
+.sec{position:absolute;inset:0;overflow-y:auto;padding:calc(70px + env(safe-area-inset-top,0px)) 20px 40px;display:none;text-align:center;z-index:2}
+.sec.on{display:block;animation:fade .8s both}
+h1{font:400 44px/1.1 'Great Vibes',cursive;color:var(--dk)}
+h2{font:700 13px Poppins;letter-spacing:3px;text-transform:uppercase;color:var(--gr);margin-bottom:6px}
+.date{display:inline-block;margin:14px 0 24px;padding:8px 18px;border-radius:30px;background:var(--dk);color:#fff;font-weight:600;font-size:14px}
+.tl{position:relative;text-align:left;margin:0 auto 28px;padding-left:44px}
+.tl:before{content:"";position:absolute;left:15px;top:10px;bottom:10px;width:4px;border-radius:4px;background:repeating-linear-gradient(var(--o) 0 8px,transparent 8px 14px)}
+.it{position:relative;background:var(--card);border-radius:16px;padding:12px 14px;margin-bottom:14px;box-shadow:0 4px 12px #bf6c0044;cursor:pointer}
+.it:before{content:"✿";position:absolute;left:-40px;top:8px;width:34px;height:34px;border-radius:50%;background:var(--o);color:#fff;display:grid;place-items:center;font-size:18px;box-shadow:0 0 0 4px #fff59d}
+.it b{color:var(--dk);font-size:15px}.it p{font-size:15px;margin-top:2px}
+.it i{display:block;font-size:12px;color:var(--gr);font-style:normal;font-weight:600;margin-top:2px}
+.grid{display:grid;gap:14px;margin:18px 0 28px;text-align:left}
+.game{display:flex;gap:14px;align-items:center;background:var(--card);border:3px dashed var(--o);border-radius:20px;padding:12px 14px;box-shadow:0 5px 0 var(--dk);transition:transform .2s;cursor:pointer;animation:rise .6s both}
+.game:hover,.game.tap{transform:scale(1.04) rotate(-1.5deg)}
+@keyframes rise{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:none}}
+.ic{flex:none;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:radial-gradient(#fff,#FFE082);border:3px solid var(--o);animation:bob 2s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-5px) rotate(6deg)}}
+.game h3{font:700 16px Poppins;color:var(--dk)}.game p{font-size:13px;margin-top:2px}
+.card{background:var(--card);border:4px double var(--o);border-radius:26px;padding:28px 20px;margin:26px 0;box-shadow:0 8px 24px #bf6c0055}
+.pin{font-size:46px;display:inline-block;animation:hop 1s infinite}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.rip:after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;background:#fff6;transform:translate(-50%,-50%);animation:rip 1.8s infinite}
+@keyframes rip{from{transform:translate(-50%,-50%) scale(1);opacity:1}to{transform:translate(-50%,-50%) scale(30);opacity:0}}
+a.btn{display:inline-block;text-decoration:none}
+/* music */
+#mus{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;z-index:30;width:46px;height:46px;border-radius:50%;border:0;background:#E65100;display:none;align-items:center;justify-content:center;gap:3px;box-shadow:0 4px 12px #0004}
+#mus span{width:4px;height:16px;background:#fff;border-radius:2px;transform-origin:50% 100%;animation:wave .8s infinite ease-in-out alternate}
+#mus span:nth-child(2){animation-delay:.2s}#mus span:nth-child(3){animation-delay:.4s}
+@keyframes wave{from{transform:scaleY(.3)}to{transform:scaleY(1)}}
+#mus.off span{animation:none;transform:scaleY(.3)}
+/* transitions */
+#gar{position:absolute;inset:0;z-index:40;display:none;pointer-events:all}
+#gar .s{position:absolute;top:0;height:112%;width:7.2%;transform:translateY(-105%);
+ background:radial-gradient(circle at 50% 50%,#FF9800 0 8px,#FFC107 9px 13px,transparent 14px) 0 0/100% 26px,linear-gradient(90deg,transparent 46%,#2E7D32 46% 54%,transparent 54%)}
+#gar.in .s{animation:gi .7s var(--d) ease-in forwards}
+#gar.out .s{transform:none;animation:go .8s var(--e) ease-in forwards}
+@keyframes gi{to{transform:none}}@keyframes go{to{transform:translateY(112%)}}
+#road{position:absolute;inset:0;z-index:40;background:linear-gradient(#FFF8E1,#FFE082);opacity:0;pointer-events:none;transition:opacity .5s}
+#road.on{opacity:1;pointer-events:all}
+#road svg{width:100%;height:100%}
+#road p{position:absolute;bottom:24px;width:100%;text-align:center;font:400 30px 'Great Vibes',cursive;color:var(--dk)}
+</style></head><body>
+<div id="app">
+<canvas id="fx"></canvas>
+
+<div id="intro">
+<svg viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice">
+<defs><radialGradient id="gl"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#FFC107" stop-opacity="0"/></radialGradient>
+<linearGradient id="dr" x1="0" x2="1"><stop offset="0" stop-color="#F9A825"/><stop offset=".5" stop-color="#FFD54F"/><stop offset="1" stop-color="#F57F17"/></linearGradient></defs>
+<rect width="360" height="640" fill="#FFF176" opacity=".0"/>
+<!-- pillars -->
+<g class="a pop" style="animation-delay:1.8s"><rect x="68" y="300" width="28" height="250" rx="3" fill="#fff" stroke="#ddd"/><rect x="62" y="292" width="40" height="10" fill="#f5f5f5" stroke="#ddd"/><rect x="62" y="546" width="40" height="10" fill="#f5f5f5" stroke="#ddd"/></g>
+<g class="a pop" style="animation-delay:2.0s"><rect x="266" y="300" width="28" height="250" rx="3" fill="#fff" stroke="#ddd"/><rect x="260" y="292" width="40" height="10" fill="#f5f5f5" stroke="#ddd"/><rect x="260" y="546" width="40" height="10" fill="#f5f5f5" stroke="#ddd"/></g>
+<!-- arch -->
+<path class="a draw" pathLength="100" style="animation-delay:2.7s" d="M82 296A99 99 0 0 1 280 296" fill="none" stroke="#2E7D32" stroke-width="12" stroke-linecap="round"/>
+<path class="a fade" style="animation-delay:3.3s" d="M82 296A99 99 0 0 1 280 296" fill="none" stroke="#FBC02D" stroke-width="22" stroke-dasharray="0 20" stroke-linecap="round"/>
+<path class="a fade" style="animation-delay:3.4s" d="M82 296A99 99 0 0 1 280 296" fill="none" stroke="#6D4C41" stroke-width="8" stroke-dasharray="0 20" stroke-dashoffset="-10" stroke-linecap="round"/>
+<!-- couple -->
+<g class="a glow"><circle cx="181" cy="440" r="110" fill="url(#gl)"/>
+<circle cx="152" cy="410" r="14" fill="#8D5A3B"/><path d="M138 408a14 12 0 0 1 28 0z" fill="#3E2723"/>
+<path d="M136 436h32l6 108h-44z" fill="#FBC02D" stroke="#F57F17" stroke-width="2"/>
+<circle cx="214" cy="412" r="13" fill="#8D5A3B"/><path d="M200 414a14 16 0 0 1 28 0v8h-28z" fill="#3E2723"/>
+<path d="M199 434h30l24 110h-78z" fill="#FFD54F" stroke="#F57F17" stroke-width="2"/><path d="M229 436l-30 60" stroke="#FF9800" stroke-width="6"/>
+<path d="M166 470l34 2" stroke="#8D5A3B" stroke-width="5" stroke-linecap="round"/></g>
+<!-- drapes -->
+<g class="a drop" style="animation-delay:0s"><path d="M0 0H150C120 90 90 200 70 270 55 190 30 130 0 120z" fill="url(#dr)"/><path d="M40 0c10 80 0 150-20 200M85 0c10 70 0 130-15 190" stroke="#F9A82588" stroke-width="3" fill="none"/></g>
+<g class="a drop" style="animation-delay:.15s"><path d="M360 0H210c30 90 60 200 80 270 15-80 40-140 70-150z" fill="url(#dr)"/><path d="M320 0c-10 80 0 150 20 200M275 0c-10 70 0 130 15 190" stroke="#F9A82588" stroke-width="3" fill="none"/></g>
+<!-- garlands & umbrellas -->
+<g class="a drop" style="animation-delay:.9s"><path d="M0 70Q180 150 360 70" fill="none" stroke="#FF9800" stroke-width="12" stroke-dasharray="1 11" stroke-linecap="round"/>
+<g class="sway" style="transform-origin:120px 0"><line x1="120" y1="0" x2="120" y2="190" stroke="#FF9800" stroke-width="9" stroke-dasharray="1 10" stroke-linecap="round"/></g>
+<g class="sway" style="transform-origin:240px 0;animation-delay:-1.2s"><line x1="240" y1="0" x2="240" y2="170" stroke="#FFC107" stroke-width="9" stroke-dasharray="1 10" stroke-linecap="round"/></g>
+<g class="sway" style="transform-origin:180px 0;animation-delay:-.6s"><line x1="180" y1="100" x2="180" y2="150" stroke="#2E7D32" stroke-width="8" stroke-dasharray="1 10" stroke-linecap="round"/></g></g>
+<g class="a drop" style="animation-delay:1.1s"><g class="sway" style="transform-origin:60px 0"><line x1="60" y1="0" x2="60" y2="115" stroke="#6D4C41"/><path d="M28 140a32 32 0 0 1 64 0z" fill="#E65100"/><path d="M28 140a32 32 0 0 1 64 0" fill="none" stroke="#FFD54F" stroke-width="3" stroke-dasharray="4 5"/><path d="M44 140a16 24 0 0 1 16-24 16 24 0 0 1 16 24" fill="none" stroke="#FFD54F" stroke-width="2"/><path d="M28 142h64" stroke="#FFEB3B" stroke-width="5" stroke-dasharray="1 7" stroke-linecap="round"/></g></g>
+<g class="a drop" style="animation-delay:1.25s"><g class="sway" style="transform-origin:300px 0;animation-delay:-1.8s"><line x1="300" y1="0" x2="300" y2="125" stroke="#6D4C41"/><path d="M268 150a32 32 0 0 1 64 0z" fill="#E65100"/><path d="M268 150a32 32 0 0 1 64 0" fill="none" stroke="#FFD54F" stroke-width="3" stroke-dasharray="4 5"/><path d="M284 150a16 24 0 0 1 16-24 16 24 0 0 1 16 24" fill="none" stroke="#FFD54F" stroke-width="2"/><path d="M268 152h64" stroke="#FFEB3B" stroke-width="5" stroke-dasharray="1 7" stroke-linecap="round"/></g></g>
+<!-- easel -->
+<g class="a slide" style="animation-delay:4.6s"><path d="M120 570L100 610M240 570L260 610M180 570v40" stroke="#6D4C41" stroke-width="6" stroke-linecap="round"/>
+<rect x="84" y="488" width="192" height="88" rx="8" fill="#fff" stroke="#8D6E63" stroke-width="6"/>
+<text x="180" y="540" text-anchor="middle" font-family="'Great Vibes',cursive" font-size="38" fill="#E65100">Sisna &amp; Noel</text>
+<text x="180" y="562" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" letter-spacing="3" fill="#2E7D32">HALDI CEREMONY</text></g>
+</svg>
+<button class="btn" id="cta">Celebrate With Us 🌼</button>
+</div>
+
+<button id="mus" aria-label="Toggle music"><span></span><span></span><span></span></button>
+
+<div id="main">
+<section class="sec on" id="s1">
+<h2>You’re Invited</h2><h1>Haldi Ceremony of Sisna &amp; Noel</h1>
+<div class="date">27th December 2026 | 5:00 PM Onwards</div>
+<div class="tl">
+<div class="it" id="conf"><b>5:30 PM</b><p>Event Starts</p><i>Tap for confetti 🎉</i></div>
+<div class="it"><b>6:00 PM</b><p>Games &amp; Fun Activities</p></div>
+<div class="it"><b>8:00 PM</b><p>Haldi Ceremony Ritual</p><i>Ends by 9:00 PM — Enjoy Food! 🍛</i></div>
+</div>
+<button class="btn" data-go="2">Go to Carnival Games</button>
+</section>
+<section class="sec" id="s2">
+<h2>Let the Fun Begin</h2><h1>Carnival Games</h1>
+<div class="grid" id="games"></div>
+<button class="btn" data-go="3">Find Venue</button>
+</section>
+<section class="sec" id="s3">
+<h2>See You There</h2><h1>The Venue</h1>
+<div class="card"><div class="pin">📍</div>
+<h1 style="font-size:40px;margin:8px 0">OUR HOME</h1>
+<div class="date" style="margin:6px 0 20px">27th December 2026 | 5:00 PM – 9:00 PM</div><br>
+<a class="btn rip" target="_blank" rel="noopener" href="https://maps.app.goo.gl/5G6JyVGBP6Dfj6sFA">Open Location on Google Maps</a></div>
+<p style="font-size:14px">Wear yellow, bring your dancing shoes 💛</p>
+</section>
+</div>
+
+<div id="gar"></div>
+<div id="road"><svg viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice">
+<defs><mask id="mk"><path id="mp" pathLength="1000" d="M180 660C40 570 40 490 180 440S320 330 180 270 40 150 180 -20" fill="none" stroke="#fff" stroke-width="90" stroke-dasharray="1000" stroke-dashoffset="1000"/></mask></defs>
+<g mask="url(#mk)"><path id="rp" d="M180 660C40 570 40 490 180 440S320 330 180 270 40 150 180 -20" fill="none" stroke="#2E7D32" stroke-width="78"/>
+<path d="M180 660C40 570 40 490 180 440S320 330 180 270 40 150 180 -20" fill="none" stroke="#FF9800" stroke-width="74" stroke-dasharray="1 13" stroke-linecap="round"/>
+<path d="M180 660C40 570 40 490 180 440S320 330 180 270 40 150 180 -20" fill="none" stroke="#FFC107" stroke-width="60" stroke-dasharray="1 15" stroke-dashoffset="7" stroke-linecap="round"/>
+<path d="M180 660C40 570 40 490 180 440S320 330 180 270 40 150 180 -20" fill="none" stroke="#4E342E" stroke-width="44"/>
+<path d="M180 660C40 570 40 490 180 440S320 330 180 270 40 150 180 -20" fill="none" stroke="#FFEB3B" stroke-width="3" stroke-dasharray="12 10"/></g>
+<text id="car" font-size="30" text-anchor="middle" dominant-baseline="middle">🚗</text></svg>
+<p>On our way to the celebration…</p></div>
+</div>
+<audio id="au" loop preload="none" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio><!-- replace src with your "Rang Lageya" audio file -->
+<script>
+const $=s=>document.querySelector(s),au=$('#au'),mus=$('#mus');
+/* petals + confetti */
+const cv=$('#fx'),cx=cv.getContext('2d');let W,H,D=Math.min(devicePixelRatio||1,2);
+function rs(){W=cv.clientWidth;H=cv.clientHeight;cv.width=W*D;cv.height=H*D;cx.setTransform(D,0,0,D,0,0)}rs();addEventListener('resize',rs);
+const cols=['#FF9800','#FFB300','#FBC02D','#F57C00','#FFCA28'];
+const mk=y=>({x:Math.random()*W,y:y??-20,r:5+Math.random()*7,vy:.6+Math.random()*1.2,vx:(Math.random()-.5)*.6,a:Math.random()*6,va:(Math.random()-.5)*.05,c:cols[Math.random()*5|0],s:Math.random()<.25,ph:Math.random()*6});
+const P=Array.from({length:34},()=>mk(Math.random()*innerHeight)),C=[];
+function petal(p){cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);
+ if(p.s){cx.fillStyle='#FFEB3B';for(let i=0;i<8;i++){cx.rotate(.785);cx.beginPath();cx.ellipse(0,p.r*.8,p.r*.28,p.r*.6,0,0,7);cx.fill()}cx.fillStyle='#5D4037';cx.beginPath();cx.arc(0,0,p.r*.4,0,7);cx.fill()}
+ else{cx.fillStyle=p.c;cx.beginPath();cx.ellipse(0,0,p.r,p.r*.55,0,0,7);cx.fill();cx.fillStyle='#ffffff44';cx.beginPath();cx.ellipse(-p.r*.2,-p.r*.1,p.r*.5,p.r*.2,0,0,7);cx.fill()}cx.restore()}
+function tick(){cx.clearRect(0,0,W,H);
+ P.forEach((p,i)=>{p.y+=p.vy;p.x+=p.vx+Math.sin(p.ph+=.02)*.5;p.a+=p.va;if(p.y>H+20)P[i]=mk();petal(p)});
+ for(let i=C.length-1;i>=0;i--){const c=C[i];c.vy+=.12;c.x+=c.vx;c.y+=c.vy;c.l--;cx.fillStyle=c.c;cx.save();cx.translate(c.x,c.y);cx.rotate(c.l*.2);cx.fillRect(-3,-2,7,4);cx.restore();if(c.l<0)C.splice(i,1)}
+ requestAnimationFrame(tick)}tick();
+function burst(){const k=['#FF9800','#FFEB3B','#E65100','#2E7D32','#fff','#FF5722'];for(let i=0;i<110;i++){const a=Math.random()*6.28,v=3+Math.random()*8;C.push({x:W/2,y:H*.4,vx:Math.cos(a)*v,vy:Math.sin(a)*v-5,c:k[i%6],l:90+Math.random()*50})}}
+/* games */
+const G=[['🪑','Musical Chairs','Classic musical race to the seat!'],['🍋','Lemon & Spoon (With a Twist!)','When music stops, grab the specific item announced!'],['🙆','Head, Toe, Knee Touch','Fast-paced reaction game!'],['🗿','London Mondon Statue','Freeze on command!'],['🪢','Tug of War','Test of strength and teamwork!'],['💃','Dance to Beats on Spot','Groove on the spot with traditional carnival beats!'],['🎭','Dumb Charades','Bollywood & party guessing fun!']];
+$('#games').innerHTML=G.map((g,i)=>`<div class="game" style="animation-delay:${i*.1}s"><div class="ic" style="animation-delay:${-i*.3}s">${g[0]}</div><div><h3>${g[1]}</h3><p>${g[2]}</p></div></div>`).join('');
+document.querySelectorAll('.game').forEach(e=>e.onclick=()=>{e.classList.add('tap');setTimeout(()=>e.classList.remove('tap'),350)});
+$('#conf').onclick=burst;
+/* music */
+function mset(on){mus.classList.toggle('off',!on)}
+mus.onclick=()=>{if(au.paused){au.play().then(()=>mset(1)).catch(()=>{})}else{au.pause();mset(0)}};
+/* intro */
+$('#cta').onclick=()=>{$('#intro').classList.add('out');$('#main').style.visibility='visible';mus.style.display='flex';
+ au.play().then(()=>mset(1)).catch(()=>mset(0));setTimeout(()=>{$('#intro').remove();burst()},800)};
+/* transitions */
+let busy=0,cur=1;
+const gar=$('#gar');for(let i=0;i<14;i++){const s=document.createElement('div');s.className='s';gar.appendChild(s)}
+const ord=[...Array(14).keys()].sort(()=>Math.random()-.5);
+[...gar.children].forEach((s,i)=>{s.style.left=i*7.14+'%';s.style.setProperty('--d',ord[i]*.07+'s');s.style.setProperty('--e',ord[i]*.05+'s')});
+function show(n){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));const s=$('#s'+n);s.classList.add('on');s.scrollTop=0;cur=n}
+function garland(){gar.className='';gar.style.display='block';void gar.offsetWidth;gar.className='in';
+ setTimeout(()=>show(2),1800);setTimeout(()=>{gar.className='out'},2100);setTimeout(()=>{gar.style.display='none';gar.className='';busy=0},3300)}
+function road(){const r=$('#road'),m=$('#mp'),p=$('#rp'),car=$('#car'),L=p.getTotalLength(),T=3000;r.classList.add('on');m.style.strokeDashoffset=1000;let t0;
+ setTimeout(()=>{requestAnimationFrame(function f(t){t0??=t;const k=Math.min((t-t0)/T,1),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,pt=p.getPointAtLength(L*e);
+  m.style.strokeDashoffset=1000*(1-e);car.setAttribute('x',pt.x);car.setAttribute('y',pt.y);
+  if(k<1)requestAnimationFrame(f);else{show(3);setTimeout(()=>{r.classList.remove('on');busy=0},500)}})},450)}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{if(busy)return;busy=1;b.dataset.go==='2'?garland():road()});
+</script>
+</body></html>
